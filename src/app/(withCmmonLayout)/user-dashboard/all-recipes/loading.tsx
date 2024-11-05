@@ -1,11 +1,11 @@
 import React from 'react';
 
-const page = () => {
+const loading = () => {
     return (
         <div>
-            user dashboard
+            single data loading
         </div>
     );
 };
 
-export default page;
+export default loading;

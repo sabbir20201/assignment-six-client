@@ -7,8 +7,8 @@ const userLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             <main className="flex max-w-6xl">
-                <div className="max-w-xs border"><UserSidebar></UserSidebar></div>
-                <div> {children}</div>
+                <div className="w-1/5 border"><UserSidebar></UserSidebar></div>
+                <div className="w-full border border-red-700"> {children}</div>
             </main>
 
         </div>

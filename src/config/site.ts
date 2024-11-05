@@ -139,16 +139,20 @@ export const userSiteConfig = {
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
-      label: "dashboard",
-      href: "/user",
+      label: "User Dashboard",
+      href: "/user-dashboard",
     },
     {
       label: "create-recipe",
-      href: "/user/createPost",
+      href: "/user-dashboard/create-post",
+    },
+    {
+      label: "Get your All recipe",
+      href: "/user-dashboard/all-recipes",
     },
     {
       label: "Edit Profile",
-      href: "user/edit-profile",
+      href: "/user-dashboard/edit-profile",
     },
     {
       label: "Home",

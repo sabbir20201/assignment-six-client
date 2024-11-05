@@ -5,29 +5,28 @@ import { Button } from '@nextui-org/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect } from 'react';
 import loginValidationSchema from '@/src/schemas/login.schema';
-import { SubmitHandler } from 'react-hook-form';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { useUserLogin } from '@/src/hooks/auth.hook';
 import Loading from '@/src/components/ui/Loading';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useUser } from '@/src/context/user.provider';
 
-interface LoginFormInputs {
-    email: string;
-    password: string;
-}
 const LoginPage = () => {
     const searchParams = useSearchParams();
-    const router = useRouter()
+    const router = useRouter();
+    const {setLoading: userLoading} = useUser()
     const redirect = searchParams.get("redirect")
 
     console.log(redirect);
     
     const { mutate: handleUserRegistration, isPending, isSuccess } = useUserLogin()
-    const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const userData = {
             ...data
         }
         console.log('data from client side login ', userData);
-        handleUserRegistration(userData)
+        handleUserRegistration(userData);
+        userLoading(true)
     }
 useEffect(()=>{
     if(!isPending && isSuccess){

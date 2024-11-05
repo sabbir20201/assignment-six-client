@@ -66,10 +66,9 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">ACME</p>
           </NextLink>
         </NavbarBrand> */}
-        <ul className="flex justify-evenly">
-        {/* hidden md:flex lg:flex gap-10 justify-center */}
-        <div>1</div>
-        <div className="flex gap-10">{siteConfig.navItems.map((item) => (
+        <ul className="hidden md:flex lg:flex gap-10 items-center justify-center">
+       
+       {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
@@ -82,12 +81,12 @@ export const Navbar = () => {
                 {item.label}
               </NextLink>
             </NavbarItem>
-          ))}</div>
+          ))}
 
-        <div> <ThemeSwitch />   <NavbarDropdown></NavbarDropdown></div>
+     
           
         </ul>
-      
+        <ThemeSwitch />   <NavbarDropdown></NavbarDropdown>
       </NavbarContent>
 
       {/* <NavbarContent

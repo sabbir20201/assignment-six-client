@@ -1,6 +1,6 @@
 
 
-const page = () => {
+const AboutPage = () => {
     return (
         // <div className="border-3 border-indigo-600">
         <div className="relative p-1 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-700 via-indigo-600 via-red-700 to-pink-500">
@@ -44,4 +44,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default AboutPage;

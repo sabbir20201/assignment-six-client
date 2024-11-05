@@ -7,13 +7,17 @@ import Link from 'next/link';
 import { useUser } from '@/src/context/user.provider';
 import { logout } from '@/src/services/AuthService';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 const NavbarDropdown = () => {
     const router = useRouter()
-    const { user } = useUser()
-    console.log('user data', user);
+    const { user, setLoading:userLoading  } = useUser()
+
 
     const handleLogout = () => {
         logout()
+        userLoading(true)
+        router.push("/")
+        toast.success("user logout success")
     }
     const handleNavigation = (pathName: string) => {
         router.push(pathName)
@@ -25,14 +29,12 @@ const NavbarDropdown = () => {
                     <User
                         name="Jane Doe"
                         className='cursor-pointer'
-                        description={user?.email}
+                        description={`${user?.email} role:${user?.role} `}
                         avatarProps={{
                             src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
                         }}
                     />
                 </DropdownTrigger>
-
-
                 <DropdownMenu
                     aria-label="Custom item styles"
                     disabledKeys={["profile"]}
@@ -53,7 +55,7 @@ const NavbarDropdown = () => {
                 >
                     <DropdownSection aria-label="Profile & Actions" showDivider>
                         {/* <DropdownItem isReadOnly key="profile" className="h-14 gap-2 opacity-100"> </DropdownItem> */}
-                        <DropdownItem onClick={() => handleNavigation('/user')} key="dashboard">User Dashboard</DropdownItem>
+                        <DropdownItem onClick={() => handleNavigation('/user-dashboard')} key="dashboard">User Dashboard</DropdownItem>
                         <DropdownItem key="settings">Settings</DropdownItem>
                     </DropdownSection>
 

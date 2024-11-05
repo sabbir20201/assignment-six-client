@@ -14,9 +14,7 @@ interface TComment {
 }
 
 export type TRecipe = {
-    [x: string]: any;
-    _id: | null | undefined;
-    // _id: string;
+    _id: string;
     user:string;
     image: string;
     title: string;
@@ -24,13 +22,13 @@ export type TRecipe = {
     ingredients: string;
     tag: string;
     cookingTime: string;
-    comments?:TComment[];
-    rating?: number;
-    ratingCount?: number;
-    upVotes?: string; 
-    downVotes?:string;
-    createdAt: Date; 
-    updatedAt: Date; 
+    // comments?:TComment[];
+    // rating?: number;
+    // ratingCount?: number;
+    // upVotes?: string; 
+    // downVotes?:string;
+    // createdAt: Date; 
+    // updatedAt: Date; 
 }       
 export type TUser =  {
   _id: string;
@@ -42,3 +40,5 @@ export type TUser =  {
   iat?: number
   exp?: number
 }
+
+

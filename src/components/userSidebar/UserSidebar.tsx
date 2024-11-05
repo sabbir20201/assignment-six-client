@@ -6,15 +6,17 @@ import Link from "next/link";
 const UserSidebar = () => {
     return (
         <div>
-              <ul className="h-screen w-56">
+              <ul className="h-screen">
             {userSiteConfig.navItems.map((item) => (
                 <div key={item.href} className="">
                     <Link
 
-                        className={clsx(
-                            linkStyles({ color: "foreground" }),
-                            "data-[active=true]:text-slate-950 data-[active=true]:font-medium rounded-lg w-full px-2 py-2 font-medium hover:bg-sky-700",
-                        )}
+                        className= {clsx(
+                               linkStyles({ color: "foreground" }),
+                                "rounded-lg w-full px-2 py-2 font-medium hover:bg-indigo-600",
+                             )}
+                        // data-[active=true]:text-slate-950
+                        // data-[active=true]:font-medium 
                         color="foreground"
                         href={item.href}
                     >

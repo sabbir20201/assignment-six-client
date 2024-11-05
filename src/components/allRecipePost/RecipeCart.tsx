@@ -1,41 +1,31 @@
 "use client"
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import Image from 'next/image';
 import Link from 'next/link';
 import { TRecipe } from '@/src/types';
-import { Input } from '@nextui-org/input';
-import axios from 'axios';
+import RecipeForm from '../form/RecipeForm';
+import RecipeInput from '../form/RecipeInput';
+import { useUser } from '@/src/context/user.provider';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { useRecipeComment } from '@/src/hooks/comment.hook';
+
 const RecipeCart = ({ item }: { item: TRecipe }) => {
+
     const [isFollowed, setIsFollowed] = React.useState(false);
-    const [comment, setComment] = useState('')
-    const handleComment = async() => {
-        console.log(comment, 'comment');
+    const {setLoading: userLoading, user} = useUser()
+    
+    const { mutate: handleRecipeComment, isPending, isSuccess } = useRecipeComment()
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const commentData = {
-            user: item?.user._id,
-            recipeId: item._id,
-            comment: comment,
+            ...data,
         }
-        try {
-            const response = await fetch("http://localhost:5000/api/recipe/comment", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(commentData),
-            });
-    
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-    
-            const data = await response.json();
-            console.log('Response from server:', data);
-        } catch (error) {
-            console.error('Error posting comment:', error);
-        }
+        console.log('data from client comment data ', commentData);
+        handleRecipeComment({recipeId: item._id,commentData});
+        
+        userLoading(true)
     }
     return (
         <div>
@@ -48,7 +38,7 @@ const RecipeCart = ({ item }: { item: TRecipe }) => {
                                 <Avatar className='relative p-[2px] rounded-full bg-gradient-to-r from-indigo-500 via-purple-700 via-indigo-600 via-red-700 to-pink-500' src={item.user?.profileImage} />
                                 {/* <Image src={} /> */}
                                 <div className="flex flex-col gap-1 items-start justify-center">
-                                    <h4 className="text-small font-semibold leading-none text-default-600">    {item.user.userName}</h4>
+                                    <h4 className="text-small font-semibold leading-none text-default-600">    {item?.user?.userName}</h4>
                                     <h5 className="text-small tracking-tight text-default-400">{item?.user?.email}</h5>
                                 </div>
                             </div>
@@ -78,12 +68,12 @@ const RecipeCart = ({ item }: { item: TRecipe }) => {
                                     height={250}
                                     style={{ height: '250px' }}
                                 />
-                         
-                            {/* </CardBody> */}
 
-                            {/* <h1 className='font-semibold pt-2'>{title}</h1> */}
+                                {/* </CardBody> */}
 
-                            <h1 className='font-semibold font-serif text-lg pt-2 cursor-pointer text-indigo-600 hover:text-indigo-800'>{item.title}</h1>
+                                {/* <h1 className='font-semibold pt-2'>{title}</h1> */}
+
+                                <h1 className='font-semibold font-serif text-lg pt-2 cursor-pointer text-indigo-600 hover:text-indigo-800'>{item.title}</h1>
                             </Link>
                             <h1 className='font-semibold pt-2'>{item.description}</h1>
                         </CardBody>
@@ -103,11 +93,10 @@ const RecipeCart = ({ item }: { item: TRecipe }) => {
 
                                 </div>
                                 <div>
-                                    <Input type="email" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Enter your comment text" />
-
-                                </div>
-                                <div>
-                                    <p className="text-default-400 text-small"><Button onClick={handleComment}>Comment</Button>  </p>
+                                    <RecipeForm onSubmit={onSubmit}>
+                                        <RecipeInput name='comment' label='Comment' type='text'></RecipeInput>
+                                        <Button className='bg-black text-white' type='submit'>submit</Button>
+                                    </RecipeForm>
 
                                 </div>
                             </div>

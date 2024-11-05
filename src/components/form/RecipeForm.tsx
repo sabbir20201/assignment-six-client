@@ -10,6 +10,8 @@ interface IProps extends formConfig {
     children: ReactNode;
     onSubmit: SubmitHandler<any>
 }
+
+
 const RecipeForm = ({ children, onSubmit, defaultValues, resolver }: IProps) => {
     const formConfig: formConfig = {}
     if (!!defaultValues) {
@@ -18,12 +20,12 @@ const RecipeForm = ({ children, onSubmit, defaultValues, resolver }: IProps) => 
     if (!!resolver) {
         formConfig["defaultValues"] = resolver
     }
-    const methods = useForm();
-
+    // const methods = useForm();
+    const methods = useForm({ defaultValues, resolver });
     const submitHandler = methods.handleSubmit
     return (
         <FormProvider {...methods}>
-            <form onSubmit={submitHandler(onSubmit)}>
+            <form onSubmit={submitHandler(onSubmit)} className="w-full gap-2">
                 {children}
             </form>
         </FormProvider>

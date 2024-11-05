@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
     console.log(pathname);
 
     const user = await getCurrentUser();
-    console.log('from middleware', user);
+    // console.log('from middleware', user);
 
     // const user = undefined;
     if (!user) {

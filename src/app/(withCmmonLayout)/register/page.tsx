@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect } from 'react';
 import loginValidationSchema from '@/src/schemas/login.schema';
-import { FieldValue, SubmitHandler } from 'react-hook-form';
+import {FieldValues, SubmitHandler } from 'react-hook-form';
 import { registerUser } from '@/src/services/AuthService';
 import { useMutation } from '@tanstack/react-query';
 import { useUserRegistration } from '@/src/hooks/auth.hook';
@@ -17,28 +17,18 @@ export interface LoginFormInputs {
     role: string;
 }
 const RegisterPage = () => {
-    // const queryClient = useQueryClient()
+
 
    const {mutate: handleUserRegistration, isPending} = useUserRegistration()
-//     useEffect(()=>{
-//         if(isPending){
-// // handle loading state 
-//         }
-//     }, [isPending])
-    const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-   
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const userData = {
             ...data
         }
          console.log('data from client side register ', userData);
-         
-        // registerUser(userData)
         handleUserRegistration(userData)
     }
-if(isPending){
-    // handle loading stat 
-    
-}
+
     return (
         <div>
           Please Register Page
