@@ -1,11 +1,11 @@
 import React from 'react';
 
-const User = () => {
+const loading = () => {
     return (
         <div>
-            
+            all recipe is loading
         </div>
     );
 };
 
-export default User;
+export default loading;

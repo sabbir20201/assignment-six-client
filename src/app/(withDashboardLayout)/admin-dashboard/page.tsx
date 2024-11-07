@@ -1,11 +1,11 @@
 import React from 'react';
 
-const EditProfile = () => {
+const AdminPage = () => {
     return (
         <div>
-            edit profile
+            ADMIN PAGE
         </div>
     );
 };
 
-export default EditProfile;
+export default AdminPage;

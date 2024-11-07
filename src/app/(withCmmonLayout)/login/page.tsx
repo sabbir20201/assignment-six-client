@@ -45,7 +45,7 @@ useEffect(()=>{
         isPending && <Loading />
        }
              <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                <RecipeForm onSubmit={onSubmit} resolver={zodResolver(loginValidationSchema)}>
+                <RecipeForm onSubmit={onSubmit}>
                     <RecipeInput name='email' label='Email' type='email'></RecipeInput>
                     <RecipeInput name='password' label='Password' type='password'></RecipeInput>
                     <Button className='bg-black text-white' type='submit'>submit</Button>

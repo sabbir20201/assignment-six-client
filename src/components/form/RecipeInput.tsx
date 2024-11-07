@@ -27,7 +27,7 @@ const RecipeInput = ({
         required={required}
         type={type}
         label={label}
-        className='size-11 lg:w-1/2 my-2'
+        className='size-11 lg:w-full my-2'
     />
 };
 export default RecipeInput;

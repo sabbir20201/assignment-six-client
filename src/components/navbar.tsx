@@ -81,14 +81,11 @@ export const Navbar = () => {
                 {item.label}
               </NextLink>
             </NavbarItem>
-          ))}
-
-     
-          
+          ))}     
         </ul>
-        <ThemeSwitch />   <NavbarDropdown></NavbarDropdown>
+        <NavbarDropdown></NavbarDropdown>
       </NavbarContent>
-
+      {/* <ThemeSwitch />  */}
       {/* <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
@@ -124,7 +121,7 @@ export const Navbar = () => {
         <Link href="/">Home</Link>
         {/* <NavbarMenuToggle /> */}
         <ThemeSwitch />
-        <NavbarDropdown></NavbarDropdown>
+        {/* <NavbarDropdown></NavbarDropdown> */}
       </NavbarContent>
 
       <NavbarMenu>

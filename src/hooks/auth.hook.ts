@@ -1,5 +1,6 @@
+
 import { useMutation } from "@tanstack/react-query";
-import { changePassword, loginUser, postRecipe, registerUser} from "../services/AuthService";
+import { changePassword, loginUser, registerUser, updateUserInformation} from "../services/AuthService";
 import { FieldValues } from "react-hook-form";
 import { toast } from 'sonner'
 
@@ -27,26 +28,10 @@ export const useUserLogin = () => {
         }
     })
 }
-// post a recipe 
-export const usePostRecipe = () => {
-    return useMutation<any, Error, FieldValues>({
-        mutationKey: ["POST_RECIPE"],
-        mutationFn: async (recipePostData) => await postRecipe(recipePostData),
-        onSuccess: (data) => {
-            // toast.success("a recipe posted successfully")
-            const successMessage = data?.message || "Recipe posted successfully";
-            toast.success(successMessage);
-      
-        },
-        onError: (error: any) => {
-            const errorMessage = error?.message || error.success;
-            toast.error(errorMessage)
-        }
-    })
-}
+
 // change user password 
 export const useChangePassword = () => {
-    return useMutation<any, Error,{updatedPassword:FieldValues}>({
+    return useMutation<any, Error,string,{updatedPassword:FieldValues}>({
         mutationKey: ["UPDATED_PASSWORD"],
         mutationFn: async (updatedPassword) => await changePassword(updatedPassword),
         onSuccess: (data) => {
@@ -57,13 +42,13 @@ export const useChangePassword = () => {
             const errorMessage = error?.message || error.success;
             toast.error(errorMessage)
         }
-    })
+    }) 
 }
 
 export const useUpdatedUserInformation = () => {
-    return useMutation<any, Error,FieldValues>({
+    return useMutation<any, Error,string>({
         mutationKey: ["UPDATE_USER_IN_FO"],
-        mutationFn: async (updatedUserInfo) => await changePassword(updatedUserInfo),
+        mutationFn: async (updatedUserInfo) => await updateUserInformation(updatedUserInfo),
         onSuccess: (data) => {
             const successMessage = data?.message || "user updated successfully";
             toast.success(successMessage);

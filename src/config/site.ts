@@ -8,13 +8,13 @@ export const siteConfig = {
       label: "Home",
       href: "/",
     },
-    // {
-    //   label: "recipe-details",
-    //   href: "/recipe-details",
-    // },
     {
       label: "About",
       href: "/about",
+    },
+    {
+      label: "Contact",
+      href: "/contact-us",
     },
     {
       label: "Login",
@@ -23,10 +23,6 @@ export const siteConfig = {
     {
       label: "Register",
       href: "/register",
-    },
-    {
-      label: "dashboard",
-      href: "/dashboard",
     },
   ],
   navMenuItems: [
@@ -76,16 +72,28 @@ export const dashboardSiteConfig = {
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
-      label: "dashboard",
-      href: "/dashboard",
+      label: "Admin Dashboard",
+      href: "/admin-dashboard",
     },
     {
-      label: "create-recipe",
-      href: "/dashboard/user/create-recipe",
+      label: "Create Recipe",
+      href: "/admin-dashboard/create-recipe",
+    },
+    {
+      label: "Recipe Management",
+      href: "/admin-dashboard/recipe-management",
+    },
+    {
+      label: "User Management",
+      href: "/admin-dashboard/user-management",
+    },
+    {
+      label: "Create Admin",
+      href: "/admin-dashboard/create-admin",
     },
     {
       label: "Edit Profile",
-      href: "/dashboard/user/edit-profile",
+      href: "/admin-dashboard/edit-admin-profile",
     },
     {
       label: "Home",
@@ -159,7 +167,7 @@ export const userSiteConfig = {
       href: "/",
     },
   ],
- 
+
   links: {
     github: "https://github.com/nextui-org/nextui",
     twitter: "https://twitter.com/getnextui",

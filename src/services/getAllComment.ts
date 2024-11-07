@@ -17,6 +17,7 @@ export const useComments = (id: string) => {
         queryFn: () => getComment(id),
     })
 }
+
 export const deleteComment = async (id: string) => {
     try {
         const res = await axios.delete(`http://localhost:5000/api/recipe/allComment/${id}`)
@@ -27,13 +28,10 @@ export const deleteComment = async (id: string) => {
 }
 
 
-
-
-
 export const commentRecipe = async (recipeId: string, commentData: FieldValues) => {
     // final 
     try {
-        const { data } =await axiosInstance.post(`/api/recipe/comment/${recipeId}`, commentData)
+        const { data } = await axiosInstance.post(`/api/recipe/comment/${recipeId}`, commentData)
         return data
     } catch (error: any) {
         console.error('axios error from comment services', error?.response?.data || error.message);
@@ -43,11 +41,13 @@ export const commentRecipe = async (recipeId: string, commentData: FieldValues) 
 export const updatedRecipeData = async (commentId: string, updatedCommentData: FieldValues) => {
     // final 
     try {
-        const { data } =await axiosInstance.put(`/api/recipe/allComment/${commentId}`, updatedCommentData)
+        console.log('updatedCommentData',updatedCommentData, commentId);
+        
+        const { data } = await axiosInstance.put(`/api/recipe/allComment/${commentId}`, updatedCommentData)
         return data
     } catch (error: any) {
         console.error('axios error from comment services', error?.response?.data || error.message);
-    
+
     }
 }
 

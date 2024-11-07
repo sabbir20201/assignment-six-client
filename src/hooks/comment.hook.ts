@@ -22,12 +22,14 @@ export const useRecipeComment = () => {
 
 export const useUpdatedRecipeComment = () => {
     // final 
-    return useMutation<any, Error, { commentId: string, updatedCommentData: FieldValues }>({
+    const queryClient = useQueryClient()
+    return useMutation<any, Error,FieldValues, string>({
         mutationKey: ["UPDATED_RECIPE_COMMENT"],
         mutationFn: async ({ commentId, updatedCommentData }) => await updatedRecipeData(commentId, updatedCommentData),
         onSuccess: (data) => {
             const successMessage = data?.message || 'Comment updated successfully'
             toast.success(successMessage)
+            queryClient.invalidateQueries({ queryKey: ['comments'] })
         },
         onError: (error: any) => {
             const errorMessage = error?.message || error.message;

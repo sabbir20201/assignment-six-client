@@ -3,11 +3,9 @@ import RecipeForm from '@/src/components/form/RecipeForm';
 import RecipeInput from '@/src/components/form/RecipeInput';
 import { Button } from '@nextui-org/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect } from 'react';
+import React from 'react';
 import loginValidationSchema from '@/src/schemas/login.schema';
 import {FieldValues, SubmitHandler } from 'react-hook-form';
-import { registerUser } from '@/src/services/AuthService';
-import { useMutation } from '@tanstack/react-query';
 import { useUserRegistration } from '@/src/hooks/auth.hook';
 export interface LoginFormInputs {
     email: string;
@@ -16,15 +14,13 @@ export interface LoginFormInputs {
     profileImage: string;
     role: string;
 }
-const RegisterPage = () => {
 
-
+const CreateAdminPage = () => {
    const {mutate: handleUserRegistration, isPending} = useUserRegistration()
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const userData = {
-            ...data,
-      
+            ...data
         }
          console.log('data from client side register ', userData);
         handleUserRegistration(userData)
@@ -32,6 +28,7 @@ const RegisterPage = () => {
 
     return (
         <div>
+          <div>
           Please Register Page
             <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                 <RecipeForm onSubmit={onSubmit} resolver={zodResolver(loginValidationSchema)}>
@@ -45,7 +42,8 @@ const RegisterPage = () => {
 
             </div>
         </div>
+        </div>
     );
 };
 
-export default RegisterPage;
+export default CreateAdminPage;

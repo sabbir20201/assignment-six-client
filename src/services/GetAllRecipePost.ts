@@ -10,9 +10,5 @@ const GetAllRecipePost = async()=>{
     } )
     return res.json()
 }
-
 export default GetAllRecipePost
 
-// {
-//     cache: 'no-store'
-// }

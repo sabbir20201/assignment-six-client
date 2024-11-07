@@ -1,17 +1,25 @@
 "use client"
 import { User } from '@nextui-org/user';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
-import { Button } from '@nextui-org/button';
-import Link from 'next/link';
 import { useUser } from '@/src/context/user.provider';
 import { logout } from '@/src/services/AuthService';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 const NavbarDropdown = () => {
     const router = useRouter()
-    const { user, setLoading:userLoading  } = useUser()
-
+    const { user, setLoading: userLoading } = useUser()
+    const [isClient, setIsClient] = useState(false)
+    // console.log('from navbar', user?.following.length);
+    console.log('from navbar', user);
+    const userName = user?.userName
+    const role = user?.role
+    const followers = user?.followers?.length
+    const email = user?.email
+    const following = user?.following.length
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     const handleLogout = () => {
         logout()
@@ -27,11 +35,11 @@ const NavbarDropdown = () => {
             <Dropdown>
                 <DropdownTrigger>
                     <User
-                        name="Jane Doe"
+                        name={`${userName ? userName : ''}  ${email ? email : ''}`}
                         className='cursor-pointer'
-                        description={`${user?.email} role:${user?.role} `}
+                        description={`following: ${followers ? followers : '0'} | following: ${following ? following : '0'}`}
                         avatarProps={{
-                            src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
+                            src: user?.profileImage
                         }}
                     />
                 </DropdownTrigger>
@@ -54,28 +62,29 @@ const NavbarDropdown = () => {
                     }}
                 >
                     <DropdownSection aria-label="Profile & Actions" showDivider>
-                        {/* <DropdownItem isReadOnly key="profile" className="h-14 gap-2 opacity-100"> </DropdownItem> */}
-                        <DropdownItem onClick={() => handleNavigation('/user-dashboard')} key="dashboard">User Dashboard</DropdownItem>
-                        <DropdownItem key="settings">Settings</DropdownItem>
+                        {user?.role === 'user' ? (<DropdownItem onClick={() => handleNavigation('/user-dashboard')} key="dashboard">User Dashboard</DropdownItem>)
+                            : user?.role === 'admin' ? (<DropdownItem onClick={() => handleNavigation('/admin-dashboard')} key="admin-dashboard">Admin Dashboard</DropdownItem>)
+
+                                : (
+                                    <DropdownItem onClick={() => handleNavigation('/register')} key="register">Register</DropdownItem>
+                                )
+                        }
                     </DropdownSection>
 
                     <DropdownSection aria-label="Preferences" showDivider>
                         <DropdownItem key="quick_search" shortcut="⌘K">
                             Quick search
                         </DropdownItem>
-                        <DropdownItem isReadOnly key="theme" className="cursor-default">
-                            Theme
-                        </DropdownItem>
+                        <DropdownItem onClick={() => handleNavigation('/about')} key="about">About</DropdownItem>
                     </DropdownSection>
 
                     <DropdownSection aria-label="Help & Feedback">
-                        <DropdownItem key="help_and_feedback">Help & Feedback </DropdownItem>
-                        <DropdownItem onClick={handleLogout} key="logout">Log Out</DropdownItem>
+
+                        <DropdownItem onClick={() => handleNavigation('/contact-us')} key="contact">Contact</DropdownItem>
+
+                        {user ? (<DropdownItem onClick={handleLogout} key="logout">Log Out</DropdownItem>) : (<DropdownItem onClick={() => handleNavigation('/login')} key="logout">Login</DropdownItem>)}
                     </DropdownSection>
                 </DropdownMenu>
-
-
-
             </Dropdown>
 
         </div>

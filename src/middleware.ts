@@ -3,40 +3,46 @@ import type { NextRequest } from 'next/server'
 import { getCurrentUser } from './services/AuthService'
 
 const AuthRoutes = ["/login", "/register"]
-type Role = keyof typeof RoleBasedRoutes
-const RoleBasedRoutes = {
-    user: ["/recipe-details","/login", "/register", "/about"],
-    admin: ["/dashboard","/login", "/register"],
-    // admin: [/^\/dashboard/]
-}
-// This function can be marked `async` if using `await` inside
+const UserProtectRoutes = ['/user-dashboard']
+const CommonProtectRoutes = [ '/about', '/contact-us']
+const AdminProtectRoutes = ['/admin-dashboard']
+// type Role = keyof typeof RoleBasedRoutes
+// const RoleBasedRoutes = {
+//     // user: ['/about','/contact-us'],
+//     admin: [\/^\admin-dashboard/path/],
+
+// }
+
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     console.log(pathname);
 
     const user = await getCurrentUser();
-    // console.log('from middleware', user);
+    console.log('from middleware', 'main role', user?.role);
 
-    // const user = undefined;
     if (!user) {
-        if (AuthRoutes.includes(pathname)) {
-            return NextResponse.next()
-        } else {
+        if (UserProtectRoutes.some(route => pathname.startsWith(route)) || AdminProtectRoutes.some(route => pathname.startsWith(route)) ||  CommonProtectRoutes.some(route => pathname.startsWith(route))) {
             return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, request.url))
         }
+            if (AuthRoutes.includes(pathname)) {
+                return NextResponse.next()
+            }
+        
     }
 
-    if (user?.role && RoleBasedRoutes[user?.role as Role]) {
-        const routes = RoleBasedRoutes[user?.role as Role];
-        console.log(routes);
-        if (routes.some((route) => pathname.match(route))) {
-            return NextResponse.next()
-        }
+    if(user?.role === 'admin' &&  AdminProtectRoutes.some(route => pathname.startsWith(route)) || CommonProtectRoutes.some(route => pathname.startsWith(route))){
+        return NextResponse.next()
     }
+    if(user?.role === 'user' &&  UserProtectRoutes.some(route => pathname.startsWith(route))){
+        return NextResponse.next()
+    }
+    if(user &&  AdminProtectRoutes.some(route => pathname.startsWith(route) && user?.role !== 'admin')){
+        return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, request.url))
+    }
+    
     return NextResponse.redirect(new URL('/', request.url))
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/about', '/login', "/register", "/dashboard"],
+    matcher: ["/login", "/register",'/about', '/contact-us', '/admin-dashboard/:path*', '/user-dashboard/:path*'],
 }

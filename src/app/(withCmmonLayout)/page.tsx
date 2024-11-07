@@ -7,7 +7,6 @@ import React, { Suspense } from 'react';
 
 const recentPage = async () => {
     const AllPost = await GetAllRecipePost()
-    // console.log('all post from main page =>', AllPost);
     const { data: recipePosts } = AllPost
 
     return (

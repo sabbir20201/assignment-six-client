@@ -1,7 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
 import axiosInstance from "../lib/AxiosInstance";
-import { LoginFormInputs } from "../app/(withCmmonLayout)/register/page";
 import { jwtDecode } from "jwt-decode";
 import { FieldValues } from "react-hook-form";
 export const registerUser = async (userData: FieldValues) => {
@@ -46,8 +45,6 @@ export const getCurrentUser = async () => {
     let decodedToken = null;
     if (accessToken) {
         decodedToken = await jwtDecode(accessToken)
-        // console.log('decoded user', decodedToken);
-
         return {
             _id: decodedToken._id,
             email: decodedToken.email,
@@ -55,20 +52,14 @@ export const getCurrentUser = async () => {
             userName: decodedToken.userName,
             profileImage: decodedToken.profileImage,
             role: decodedToken.role,
+            followers: decodedToken.followers,
+            following: decodedToken.following,
         }
     }
     return decodedToken
 }
 
-export const postRecipe = async (recipePostData: FieldValues) => {
-    try {
-        const { data } = await axiosInstance.post("/api/recipe", recipePostData)
-        return data
-    } catch (error: any) {
-        console.error("Axios error:", error.response?.data || error.message);
-        throw new Error(error.response?.data || error.message);
-    }
-}
+
 
 
 export const changePassword = async (updatedPassword: string) => {

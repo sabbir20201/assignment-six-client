@@ -5,41 +5,41 @@ import Link from 'next/link';
 import React from 'react';
 
 const DropDown = () => {
-    // const items = [
-    //     {
-    //         key: "new",
-    //         label: "New file",
-    //     },
-    //     {
-    //         key: "copy",
-    //         label: "Copy link",
-    //     },
-    //     {
-    //         key: "edit",
-    //         label: "Edit file",
-    //     },
-    //     {
-    //         key: "delete",
-    //         label: "Delete file",
-    //     }
-    // ];
- const items =[
-        {
-          label: "Home",
-          href: "/",
-          key: "new1",
-        },
-        {
-          label: "create-recipe",
-          href: "/dashboard/user/create-recipe",
-          key: "new2",
-        },
-        {
-          label: "dashboard",
-          href: "/dashboard",
-          key: "new3",
-        },
-      ]
+     const items = [
+   {
+        label: "Home",
+        href: "/",
+        key: '1',
+    
+      },
+      {
+        label: "create-recipe",
+        href: "/admin-dashboard/create-recipe",
+        key: '2',
+      },
+      {
+        label: "dashboard",
+        href: "/dashboard",
+        key: '3',
+      },
+    ];
+//  const items =[
+//         {
+//           label: "Home",
+//           href: "/",
+      
+//         },
+//         {
+//           label: "create-recipe",
+//           href: "/dashboard/user/create-recipe",
+      
+//         },
+//         {
+//           label: "dashboard",
+//           href: "/dashboard",
+     
+//         },
+//       ]
     return (
         <div>
             <Dropdown>
