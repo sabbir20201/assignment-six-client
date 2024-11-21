@@ -1,6 +1,5 @@
-export const  envConfig = {
-    baseApi: process.env.RECIPE_API,
-    
-}
+export const envConfig = {
+  baseApi: process.env.RECIPE_API,
+};
 
-export default envConfig
+export default envConfig;

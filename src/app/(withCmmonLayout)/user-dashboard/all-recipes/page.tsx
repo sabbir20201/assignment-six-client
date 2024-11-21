@@ -1,67 +1,100 @@
-"use client"
-import { useUser } from '@/src/context/user.provider';
-import GetSingleUserRecipe from '@/src/services/GetSingleUserRecipe';
-import React from 'react';
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, getKeyValue } from "@nextui-org/table";
-import { User } from '@nextui-org/user';
-import Image from 'next/image';
+"use client";
+import React from "react";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell,
+} from "@nextui-org/table";
+import Image from "next/image";
+import { Button } from "@nextui-org/button";
 
-  const columns = [
-    {
-      key: "image",
-      label: "IMAGE",
-    },
-    {
-      key: "title",
-      label: "TITLE",
-    },
-    {
-      key: "update",
-      label: "UPDATE",
-    },
-    {
-      key: "delete",
-      label: "DELETE",
-    },
-  ];
-  
+import { TRecipe } from "@/src/types";
+import { UseUser } from "@/src/context/user.provider";
+import {
+  useDeleteSingleRecipe,
+  useGetSingleUserRecipes,
+} from "@/src/hooks/userHooks/user.single.recipe.hook";
+
+const columns = [
+  {
+    key: "image",
+    label: "IMAGE",
+  },
+  {
+    key: "title",
+    label: "TITLE",
+  },
+  {
+    key: "update",
+    label: "UPDATE",
+  },
+  {
+    key: "delete",
+    label: "DELETE",
+  },
+];
 
 const AllRecipePage = async () => {
+  const { user, setLoading } = UseUser();
+  const id = user?._id;
+  const { data: userRecipe, isLoading } = useGetSingleUserRecipes(id);
+  const { mutate: handleDeleteSingleUserRecipe } = useDeleteSingleRecipe();
 
-    const { user } = useUser()
-    const userRecipe = await GetSingleUserRecipe(user?._id)
-    // console.log('all data', userRecipe?.data);
+  if (isLoading) {
+    return <p>single users recipe loading..</p>;
+  }
+  const handleDelete = (recipeId: string) => {
+    handleDeleteSingleUserRecipe({ id: recipeId });
+    setLoading(true);
+    isLoading;
+  };
 
+  return (
+    <div>
+      <div className="text-2xl p-3">
+        Total Recipes : {userRecipe?.data?.length || 0}
+      </div>
 
-    return (
-        <div>
-            data:{userRecipe?.data?.length || 0}
+      <Table aria-label="Example table with dynamic content">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn key={column.key}>{column.label}</TableColumn>
+          )}
+        </TableHeader>
 
-            <Table aria-label="Example table with dynamic content">
-      <TableHeader columns={columns}>
-        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-      </TableHeader>
-
-      <TableBody items={userRecipe?.data}>
-        {(item) => (
-          <TableRow key={item?._id || []}>
-                 <TableCell>{item?.image ? (<Image src={item?.image} height={30} alt='recipe img' width={30} />): ("no image")}</TableCell>
-                 <TableCell>{item?.title || 'no title'}</TableCell>
-                 <TableCell> UPDATE</TableCell>
-                 <TableCell>DELETE</TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-        </div>
-    );
+        <TableBody items={userRecipe?.data}>
+          {(item: TRecipe) => (
+            <TableRow key={item?._id}>
+              <TableCell>
+                {item?.image ? (
+                  <Image
+                    alt="recipe img"
+                    className="rounded-full"
+                    height={30}
+                    src={item?.image}
+                    width={30}
+                  />
+                ) : (
+                  "no image"
+                )}
+              </TableCell>
+              <TableCell>{item?.title}</TableCell>
+              <TableCell> UPDATE</TableCell>
+              <TableCell>
+                {" "}
+                <Button className="" onClick={() => handleDelete(item?._id)}>
+                  DELETE{" "}
+                </Button>{" "}
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
 };
 
 export default AllRecipePage;
-{/* <User
-            avatarProps={{radius: "lg", src: user?.profileImage}}
-            description={user?.email}
-            name={user?.name}
-          >
-            {user?.email}
-          </User> */}

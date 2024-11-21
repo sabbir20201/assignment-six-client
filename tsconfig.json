@@ -23,6 +23,12 @@
       "@/src/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(withCmmonLayout)/login"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/(withCmmonLayout)/login"
+  ],
   "exclude": ["node_modules"]
 }

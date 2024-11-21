@@ -2,9 +2,8 @@ import axios from "axios";
 // import { cookies } from "next/headers";
 import Cookies from "js-cookie";
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
-  withCredentials: true
-
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
 });
 
 // axiosInstance.interceptors.request.use(function (config) {
@@ -27,14 +26,16 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   function (config) {
     const accessToken = Cookies.get("accessToken");
+
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+
     return config;
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInstance.interceptors.response.use(
@@ -43,7 +44,7 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
-export default axiosInstance
+export default axiosInstance;

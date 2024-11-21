@@ -1,22 +1,28 @@
-// import { useQuery } from "@tanstack/react-query";
-// import { toast } from "sonner";
-// import { getAllRecipe } from "../adminServices/GetAllRecipe";
-// import { TRecipe } from "../types";
+import { useQuery } from "@tanstack/react-query";
 
+import GetSingleUserRecipe from "../services/GetSingleUserRecipe";
 
-// export const useGetAllRecipes = () => {
-//     return useQuery<TRecipe[], Error>({
-//         queryKey: ["GET_ALL_RECIPES"],
-//         queryFn: async () => await getAllRecipe(),
-//         onSuccess: (data: TRecipe) => {
-//             const successMessage = data?.message || 'All-recipes fetched successfully';
-//             toast.success(successMessage);
-//         },
-//         onError: (error: any) => {
-//             const errorMessage = error?.message || 'failed to fetch all-recipe';
-//             toast.error(errorMessage);
-//         }
+export const useGetSingleUserRecipes = (id: string | any) => {
+  return useQuery({
+    queryKey: ["GET_SINGLE_USERS_RECIPES", id],
+    queryFn: () => GetSingleUserRecipe(id),
+  });
+};
+
+// export const useComments = (id: string) => {
+//     return useQuery({
+//         queryKey: ['comments', id],
+//         queryFn: () => getComment(id),
 //     })
 // }
 
-
+// export const useSingleRecipeQuery = (id: string) => {
+//     return useQuery({
+//         queryKey: ['singleRecipe', id], // Include the id in the query key
+//         queryFn: ({ queryKey }) => {
+//             const recipeId = queryKey[1] as string; // Extract the id from the query key
+//             return getSingleRecipeByUserId(recipeId);
+//         },
+//         enabled: !!id, // Only run the query if `id` is provided
+//     });
+// };

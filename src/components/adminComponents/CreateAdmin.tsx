@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const CreateAdmin = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return <div />;
 };
 
 export default CreateAdmin;

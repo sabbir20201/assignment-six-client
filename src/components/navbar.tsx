@@ -2,12 +2,10 @@ import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
@@ -15,20 +13,13 @@ import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
+import NavbarDropdown from "./ui/NavbarDropdown";
+
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/src/components/icons";
-import { useUser } from "../context/user.provider";
-import NavbarDropdown from "./ui/NavbarDropdown";
-export const Navbar = () => {
+import { SearchIcon, Logo } from "@/src/components/icons";
 
+export const Navbar = () => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -56,10 +47,12 @@ export const Navbar = () => {
         <NextLink className="flex justify-center items-center gap-1" href="/">
           <Logo />
           <p className="font-bold text-inherit">Recipe Share</p>
-
         </NextLink>
       </NavbarBrand>
-      <NavbarContent className="basis-1/5 flex justify-between sm:basis-full " justify="start">
+      <NavbarContent
+        className="basis-1/5 flex justify-between sm:basis-full "
+        justify="start"
+      >
         {/* <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-center items-center gap-1" href="/">
             <Logo />
@@ -67,8 +60,7 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand> */}
         <ul className="hidden md:flex lg:flex gap-10 items-center justify-center">
-       
-       {siteConfig.navItems.map((item) => (
+          {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
@@ -81,9 +73,9 @@ export const Navbar = () => {
                 {item.label}
               </NextLink>
             </NavbarItem>
-          ))}     
+          ))}
         </ul>
-        <NavbarDropdown></NavbarDropdown>
+        <NavbarDropdown />
       </NavbarContent>
       {/* <ThemeSwitch />  */}
       {/* <NavbarContent

@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const loading = () => {
-    return (
-        <div>
-           Recipe details page is loading 
-        </div>
-    );
+  return <div>Recipe details page is loading</div>;
 };
 
 export default loading;

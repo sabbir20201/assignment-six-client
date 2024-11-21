@@ -1,11 +1,15 @@
-import envConfig from "@/src/config/envConfig"
+import envConfig from "@/src/config/envConfig";
 
-const GetSingleRecipeDetails = async(id: string)=>{
-    console.log(envConfig.baseApi);
-    
-    const res = await fetch(`http://localhost:5000/api/recipe/${id}`)
+const GetSingleRecipeDetails = async (id: string) => {
+  console.log(envConfig.baseApi);
 
-    return res.json()
-}
+  const res = await fetch(
+    `http://localhost:5000/api/recipe/${id}`, {
+      cache: 'no-store'
+    },
+  );
 
-export default GetSingleRecipeDetails
+  return res.json();
+};
+
+export default GetSingleRecipeDetails;

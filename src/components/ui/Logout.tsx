@@ -1,28 +1,27 @@
-"use client"
-import { logout } from '@/src/services/AuthService';
-import { Button } from '@nextui-org/button';
-import React from 'react';
-import { useUser } from '@/src/context/user.provider';
+"use client";
+import { Button } from "@nextui-org/button";
+import React from "react";
+
+import { logout } from "@/src/services/AuthService";
+import { UseUser } from "@/src/context/user.provider";
 
 const Logout = () => {
-    const { user } = useUser()
-    console.log('user data', user);
+  const { user } = UseUser();
 
-    const handleLogout = () => {
-        logout()
-    }
-    return (
-        <div>
-            <Button onClick={handleLogout}>
+  console.log("user data", user);
 
-                {
-                    user?.email ? user.email : ""
-                }
-                <p>logout </p>
+  const handleLogout = () => {
+    logout();
+  };
 
-            </Button>
-        </div>
-    );
+  return (
+    <div>
+      <Button onClick={handleLogout}>
+        {user?.email ? user.email : ""}
+        <p>logout </p>
+      </Button>
+    </div>
+  );
 };
 
 export default Logout;

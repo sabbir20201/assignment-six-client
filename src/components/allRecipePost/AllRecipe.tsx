@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const AllRecipe = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return <div />;
 };
 
 export default AllRecipe;

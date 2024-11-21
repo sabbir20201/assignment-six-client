@@ -3,12 +3,6 @@ import { SVGProps } from "react";
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
-interface TComment {
-    user: string;
-    comment: string;
-    createdAt?: Date;
-}
-
 
 export type TUser = {
   _id: string;
@@ -17,13 +11,13 @@ export type TUser = {
   profileImage: string;
   role: string;
   followers: string[];
-  following: string[]
+  following: string[];
 };
 
 export type TRecipe = {
   [x: string]: any;
   _id: string;
-  user: TUser; 
+  user: TUser;
   image: string;
   title: string;
   description: string;
@@ -34,5 +28,3 @@ export type TRecipe = {
   updatedAt: string;
   __v: number;
 };
-
-
